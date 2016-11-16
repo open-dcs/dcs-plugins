@@ -1,0 +1,7 @@
+[Plugin]
+Module=mpl-pyplot
+Loader=python3
+Name=Matplotlib Pyplot Plugin
+Description=Plugin using matplotlib with pyplot.
+Authors=Geoff Johnson <geoff.jay@gmail.com>
+Copyright=Copyright © 2016 Geoff Johnson

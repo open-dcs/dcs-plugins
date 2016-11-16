@@ -1,0 +1,7 @@
+[Plugin]
+Module=3d-animation
+Loader=python3
+Name=3D Animation Plugin
+Description=Plugin demonstrating a matplotlib 3d animation.
+Authors=Geoff Johnson <geoff.jay@gmail.com>
+Copyright=Copyright © 2016 Geoff Johnson
