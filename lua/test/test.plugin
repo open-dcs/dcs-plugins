@@ -1,0 +1,7 @@
+[Plugin]
+Module=test
+Loader=lua5.1
+Name=Test lua5.1
+Description=This plugin is for the lua5.1 PeasExtension tests.
+Authors=Geoff Johnson
+Copyright=Copyright © 2016 Geoff Johnson

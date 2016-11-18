@@ -21,43 +21,49 @@ from matplotlib.backends.backend_gtk3agg import FigureCanvasGTK3Agg as FigureCan
 import matplotlib.pyplot as plt
 import numpy as np
 
-class MplPyplotPlugin(Peas.ExtensionBase, Peas.Activatable):
+class MplPyplotPlugin(DcsUI.UIPlugin):
     __gtype_name__ = 'MplPyplotPlugin'
 
     object = GObject.property(type=GObject.Object)
 
+    def __init__(self):
+        self.plot = MplPyplotCanvas()
+        self.connect("enabled", self.do_enabled)
+        self.connect("disabled", self.do_disabled)
+
     def do_activate(self):
-        print("perform plugin activation")
+        print("Matplotlib plugin activation")
         app = self.object.get_app()
-        self.controller = app.get_controller()
-        self.object.connect("enabled", self.do_enabled)
-        self.object.connect("disabled", self.do_disabled)
-
-    def do_deactivate(self):
-        print("perform plugin deactivation")
-
-    def do_update_state(self):
-        print("perform plugin update state")
-
-    def do_enabled(self, data):
+        controller = app.get_controller()
         window = DcsUI.UIWindow()
         window.set_property("id", "win3")
         page = DcsUI.UIPage()
         page.set_property("id", "pg3")
         box = DcsUI.UIBox()
         box.set_property("id", "plugbox3")
-        plot = MplPyplotCanvas()
-        self.controller.add(window, "/")
-        self.controller.add(page, "/win3")
-        self.controller.add(box, "/win3/pg3")
-        self.controller.add(plot, "/win3/pg3/plugbox3")
-        plot.draw()
+        controller.add(window, "/")
+        controller.add(page, "/win3")
+        controller.add(box, "/win3/pg3")
+        controller.add(self.plot, "/win3/pg3/plugbox3")
+        self.plot.draw()
+
+    def do_deactivate(self):
+        print("Matplotlib plugin deactivation")
+        app = self.object.get_app()
+        controller = app.get_controller()
+        controller.remove("/win3/pg3/plugbox3/plot0")
+        controller.remove("/win3/pg3/plugbox3")
+        controller.remove("/win3/pg3")
+        controller.remove("/win3")
+
+    def do_update_state(self):
+        print("Matplotlib plugin update state")
+
+    def do_enabled(self, data):
+        print("Matplotlib plugin enabled")
 
     def do_disabled(self, data):
-        self.controller.remove("/win3/pg3/plugbox3/plot0")
-        self.controller.remove("/win3/pg3/plugbox3")
-        self.controller.remove("/win3/pg3")
-        self.controller.remove("/win3")
+        print("Matplotlib plugin disabled")
 
 class MplPyplotConfigurable(GObject.Object, PeasGtk.Configurable):
     __gtype_name__ = 'MplPyplotConfigurable'

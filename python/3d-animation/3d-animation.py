@@ -30,19 +30,11 @@ class Wire3DAnimPlugin(DcsUI.UIPlugin):
     object = GObject.property(type=GObject.Object)
 
     def do_activate(self):
-        print("perform plugin activation")
+        print("3D animation plugin activation")
         app = self.object.get_app()
         self.controller = app.get_controller()
         self.object.connect("enabled", self.do_enabled)
         self.object.connect("disabled", self.do_disabled)
-
-    def do_deactivate(self):
-        print("perform plugin deactivation")
-
-    def do_update_state(self):
-        print("perform plugin update state")
-
-    def do_enabled(self, data):
         self.running = True
         # window = DcsUI.UIWindow()
         # window.set_property("id", "win3")
@@ -58,14 +50,23 @@ class Wire3DAnimPlugin(DcsUI.UIPlugin):
         self.controller.add(plot, "/win3/pg3/plugbox3")
         self.thread.start()
 
-    def do_disabled(self, data):
+    def do_deactivate(self):
+        print("3D animation plugin deactivation")
         self.thread.stop()
         self.thread.join()
         # self.controller.remove("/win3/pg3/plugbox3/plot0")
         # self.controller.remove("/win3/pg3/plugbox3")
         # self.controller.remove("/win3/pg3")
         # self.controller.remove("/win3")
-        print("disable plugin")
+
+    def do_update_state(self):
+        print("3D animation plugin update state")
+
+    def do_enabled(self, data):
+        print("3D animation plugin enabled")
+
+    def do_disabled(self, data):
+        print("3D animation plugin disabled")
 
 class Wire3DAnimConfigurable(GObject.Object, PeasGtk.Configurable):
     __gtype_name__ = 'Wire3DAnimConfigurable'
@@ -96,7 +97,7 @@ class Wire3DAnimCanvas(DcsUI.UISimpleWidget):
         self.X, self.Y = np.meshgrid(xs, ys)
         Z = self.generate(self.X, self.Y, 0.0)    # XXX unecessary?
         self.frame = 0
-        self.phi = np.linspace(0, 360 / 2 / np.pi, 100)
+        self.phi = np.linspace(0, 360 / 2 / np.pi, 360)
 
     def generate(self, X, Y, phi):
         R = 1 - np.sqrt(X**2 + Y**2)
@@ -131,4 +132,4 @@ class Wire3DAnimCanvasThread(threading.Thread):
         self.running = True
         while self.running:
             self.plot.draw()
-            time.sleep(.1)
+            time.sleep(1./30)
