@@ -5,15 +5,15 @@ Repository to hold plugin examples and tests.
 A working installation of OpenDCS is required to use the plugins in this
 repository.
 
-## Installing
+## Building
 
-The instructions here assume the development installation path prefix
-`/usr/local`.
-
-### Python
+Currently the OpenDCS `autoconf` setup uses `lib` for `libdir` but `meson`
+defaults to `lib64` so that gets set here to avoid doing things the correct way.
 
 ```bash
-cp python/<plugin>/*.{py,plugin} /usr/local/lib/dcs/plugins/
+meson --libdir=/usr/local/lib \_build
+ninja -C \_build
+sudo ninja -C \_build
 ```
 
 ## Running

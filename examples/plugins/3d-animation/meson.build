@@ -1,14 +1,14 @@
 configure_file(
-          input: 'pub-gen.plugin',
-         output: 'pub-gen.plugin',
+          input: 'mpl-pyplot.plugin',
+         output: 'mpl-pyplot.plugin',
   configuration: configuration_data(),
         install: true,
     install_dir: plugindir
 )
 
 configure_file(
-          input: 'pub-gen.json',
-         output: 'pub-gen.json',
+          input: 'mpl-pyplot.py',
+         output: 'mpl-pyplot.py',
   configuration: configuration_data(),
         install: true,
     install_dir: plugindir

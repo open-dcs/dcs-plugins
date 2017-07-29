@@ -1,0 +1,15 @@
+# Examples
+option('with_examples', type: 'boolean', value: false)
+
+# Options to enable different plugin types
+# Ideally we want many of these to be defined in the respective plugin dir:
+#   https://github.com/mesonbuild/meson/issues/707
+
+# Backend plugins
+
+# Controller plugins
+
+# Device plugins
+option('with_device_pub_gen', type: 'boolean')
+
+# UI addin plugins
