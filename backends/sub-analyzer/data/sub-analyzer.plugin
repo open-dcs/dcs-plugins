@@ -1,0 +1,8 @@
+[Plugin]
+Module=sub-analyzer-backend
+Name=Subscribing Message Analyzer Backend Plugin
+Description=ZMQ subscribing backend plugin for testing.
+Authors=Geoff Johnson <geoff.jay@gmail.com>
+Copyright=Copyright © 2017 Geoff Johnson
+Builtin=true
+X-Type=backend

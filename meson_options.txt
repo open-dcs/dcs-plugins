@@ -6,6 +6,7 @@ option('with_examples', type: 'boolean', value: false)
 #   https://github.com/mesonbuild/meson/issues/707
 
 # Backend plugins
+option('with_backend_sub_analyzer', type: 'boolean')
 
 # Controller plugins
 

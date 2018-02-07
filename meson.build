@@ -35,7 +35,7 @@ status = [
   'Libdir ................ : @0@'.format(join_paths(get_option('prefix'), get_option('libdir'))),
   '',
   'Examples .............. : @0@'.format(get_option('with_examples')),
-  ''
+  '', ''
 ]
 
 add_project_arguments(['--target-glib', '2.44'], language: 'vala')
@@ -50,7 +50,14 @@ peas_dep = dependency('libpeas-1.0', version: '>= 1.16.0')
 soup_dep = dependency('libsoup-2.4', version: '>= 2.48.0')
 xml_dep = dependency('libxml-2.0', version: '>= 2.9.0')
 zmq_dep = dependency('libzmq', version: '>= 3.2.0')
+msgpack_dep = dependency('msgpack', version: '>= 0.9.0')
 posix_dep = meson.get_compiler('vala').find_library('posix')
+
+add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')],
+                      language: 'vala')
+
+util_vapi = meson.get_compiler('vala').find_library('util', dirs: join_paths(meson.current_source_dir(), 'vapi'))
+util_dep = declare_dependency(dependencies: [util_vapi])
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -64,7 +71,9 @@ common_deps = [
   peas_dep,
   soup_dep,
   xml_dep,
-  posix_dep
+  msgpack_dep,
+  posix_dep,
+  util_dep
 ]
 
 subdir('backends')

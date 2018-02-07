@@ -1,4 +1,5 @@
-#include <json-glib/json-glib.h>
-
-void * dcs_pub_gen_serialze (DcsMessage *msg);
-void dcs_pub_gen_unpack (void *buf);
+char * dcs_util_pack (DcsMessage *msg, size_t *len);
+void dcs_util_pack2 (DcsMessage *msg, char *data);
+/*
+ *void dcs_util_unpack (char *buf);
+ */
